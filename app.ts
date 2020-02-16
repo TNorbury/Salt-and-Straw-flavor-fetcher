@@ -34,7 +34,7 @@ function main() {
 }
 
 function parseHTML(text: string, city: string) {
-  let root = HTMLParser.parse(text);
+  let root: HTMLElement = HTMLParser.parse(text);
 
   // Find the node for the city we're looking for
   let cityNode = findCityNode(root, city);
@@ -51,14 +51,15 @@ function parseHTML(text: string, city: string) {
 }
 
 // Search the html tree for the node that has all the city's flavor information
-function findCityNode(htmlElement, city: string) {
+function findCityNode(htmlElement: HTMLElement, city: string) {
   let cityNode: HTMLElement = null;
+
   // If this is the city node we're looking for, we'll return that
   if (htmlElement.getAttribute("id") == city) {
     cityNode = htmlElement;
   }
 
-  // Otherwise, look at the children elements
+  // Otherwise, look at the children elements and see if we can find it
   else if (htmlElement.childNodes.length > 0) {
     let childrenNodes = htmlElement.childNodes;
 
@@ -66,10 +67,10 @@ function findCityNode(htmlElement, city: string) {
     for (var i = 0; i < childrenNodes.length; i++) {
       let child = childrenNodes[i];
 
-      // We only want to search element node, and I know that the element node type
+      // We only want to search html nodes, and I know that the html node type
       // is 1
       if (child.nodeType == 1) {
-        cityNode = findCityNode(child, city);
+        cityNode = findCityNode(child as HTMLElement, city);
 
         if (cityNode != null) {
           break;
