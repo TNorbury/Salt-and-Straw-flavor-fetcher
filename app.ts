@@ -6,6 +6,8 @@ main();
 
 function main() {
 
+  console.log("\n\nNOW LOADING SALT & STRAW FLAVORS... \n\n")
+
   // Start by fetching the Salt and Straw flavors page
   node_fetch("https://saltandstraw.com/pages/flavors")
     .then(res => res.text())
@@ -29,6 +31,7 @@ function parseHTML(text) {
   }
 }
 
+// Search the html tree for the node that has all the portland flavor information
 function findPortlandNode(htmlElement) {
   let portlandNode: HTMLElement = null;
   // If this is the portland node, we'll return that
