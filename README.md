@@ -7,5 +7,5 @@ To run it just do the following:
 
 ```sh
 npm install
-npx ts-node .\app.ts
+npx ts-node app.ts
 ```
