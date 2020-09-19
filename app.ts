@@ -31,22 +31,24 @@ function main() {
   node_fetch("https://saltandstraw.com/pages/flavors")
     .then(res => res.text())
     .then(body => parseHTML(body, city));
-}
+  }
+  
+  function parseHTML(text: string, city: string) {
+    let root: HTMLElement = HTMLParser.parse(text);
+    
+    // Find the node for the city we're looking for
+    let cityNode = findCityNode(root, city);
+    
+    // Now parse through that city's node 
+    if (cityNode != null) {
+      let flavors = getFlavors(cityNode.innerHTML);
+      
+      // Now print out all the flavors
+      console.log("This month's special flavors are:")
+      
+      flavors.forEach(flavor => console.log("\t" + flavor.trim()));
 
-function parseHTML(text: string, city: string) {
-  let root: HTMLElement = HTMLParser.parse(text);
-
-  // Find the node for the city we're looking for
-  let cityNode = findCityNode(root, city);
-
-  // Now parse through that city's node 
-  if (cityNode != null) {
-    let flavors = getFlavors(cityNode.innerHTML);
-
-    // Now print out all the flavors
-    console.log("This month's special flavors are:")
-
-    flavors.forEach(flavor => console.log("\t" + flavor.trim()));
+      console.log("");
   }
 }
 
